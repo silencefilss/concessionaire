@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Motors | Catalogue V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .catalog-header {
+            padding-top: 100px;
+            /* Offset for fixed navbar */
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .catalog-layout {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        @media (max-width: 900px) {
+            .catalog-layout {
+                flex-direction: column;
+            }
+        }
+
+        /* Filter Sidebar V2 */
+        .sidebar {
+            width: 300px;
+            flex-shrink: 0;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: sticky;
+            top: 100px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 100%;
+                position: static;
+                max-height: none;
+            }
+        }
+
+        .sidebar h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reset-btn {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .reset-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .filter-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 0.6rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Main Content wrapper */
+        .main-content {
+            flex-grow: 1;
+        }
+
+        .catalog-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .results-count {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .sort-select {
+            padding: 0.5rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Transparent Navbar -->
+    <nav class="navbar">
+        <a href="./index.html" class="logo">Apex<span>Motors</span></a>
+        <div class="nav-links">
+            <a href="./index.html">Accueil</a>
+            <a href="./catalog.html" class="active">Catalogue</a>
+            <a href="./admin.html">Admin</a>
+        </div>
+    </nav>
+
+    <div class="container catalog-header fade-in">
+        <h1 class="title" style="font-size: 3rem;">Inventaire Premium</h1>
+        <p class="subtitle">Trouvez le véhicule d'exception qui correspond à vos aspirations.</p>
+    </div>
+
+    <div class="container catalog-layout fade-in" style="animation-delay: 0.2s">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar">
+            <h3>Filtres <button id="resetFilters" class="reset-btn">Réinitialiser</button></h3>
+
+            <div class="filter-group">
+                <label>Recherche libre</label>
+                <input type="text" id="searchInput" placeholder="Mot clé, équipement...">
+            </div>
+
+            <div class="filter-group">
+                <label>Marque</label>
+                <select id="filterMake">
+                    <option value="">Toutes les marques</option>
+                    <!-- Populated dynamically -->
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Prix (€)</label>
+                <div class="filter-row">
+                    <input type="number" id="minPrice" placeholder="Min" step="1000">
+                    <input type="number" id="maxPrice" placeholder="Max" step="1000">
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label>Année</label>
+                <div class="filter-row">
+                    <input type="number" id="minYear" placeholder="Ex: 2018">
+                    <input type="number" id="maxYear" placeholder="Max">
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label>Kilométrage (km)</label>
+                <input type="number" id="maxMileage" placeholder="Kilométrage maximum" step="5000">
+            </div>
+
+            <div class="filter-group">
+                <label>Type de véhicule</label>
+                <select id="filterType">
+                    <option value="">Tous les types</option>
+                    <option value="Berline">Berline</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Coupé">Coupé</option>
+                    <option value="Cabriolet">Cabriolet</option>
+                    <option value="Break">Break</option>
+                    <option value="Citadine">Citadine</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Énergie</label>
+                <select id="filterEnergy">
+                    <option value="">Toutes</option>
+                    <option value="Essence">Essence</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Hybride">Hybride</option>
+                    <option value="Électrique">Électrique</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Boîte de vitesse</label>
+                <select id="filterGearbox">
+                    <option value="">Toutes</option>
+                    <option value="Manuelle">Manuelle</option>
+                    <option value="Automatique">Automatique</option>
+                </select>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Toolbar -->
+            <div class="catalog-toolbar">
+                <div class="results-count"><span id="resultCount">0</span> véhicule(s) trouvé(s)</div>
+                <div style="display:flex; align-items:center; gap:0.5rem">
+                    <label for="sortSelect" style="color:var(--text-secondary); font-size:0.9rem">Trier par :</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="recent">Les plus récents</option>
+                        <option value="priceAsc">Prix croissant</option>
+                        <option value="priceDesc">Prix décroissant</option>
+                        <option value="yearDesc">Année (plus récent)</option>
+                        <option value="mileageAsc">Kilométrage (plus faible)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div id="catalogGrid" class="grid">
+                <!-- Dynamic Content -->
+                <div style="text-align: center; grid-column: 1 / -1; padding: 2rem;">
+                    Chargement des véhicules...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer
+        style="text-align: center; padding: 3rem; border-top: 1px solid var(--border); color: var(--text-secondary); margin-top: 4rem;">
+        <p>&copy; 2026 Apex Motors. Tous droits réservés.</p>
+    </footer>
+
+    <script src="./js/data.js"></script>
+    <script src="./js/catalog.js"></script>
+</body>
+
+</html>

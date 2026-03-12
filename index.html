@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Motors | Véhicules d'exception</title>
+    <!-- Google Fonts: Inter & Outfit for headings -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        h1,
+        h2,
+        h3,
+        .logo {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* --- V2 Hero Section --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 5% 4rem;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            filter: brightness(0.35);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, var(--bg-primary) 100%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 1;
+        }
+
+        .hero .title {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            margin-bottom: 3rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* --- V2 Featured Vehicles (Catalog Preview) --- */
+        .section-preview {
+            padding: 6rem 0;
+            background: var(--bg-primary);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- V2 About Section --- */
+        .section-about {
+            padding: 8rem 5%;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 960px) {
+            .about-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- V2 Features/Strengths --- */
+        .features {
+            padding: 8rem 5%;
+            background: var(--bg-primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            padding: 2.5rem;
+            border-radius: 16px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            background: var(--accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- V2 Reviews --- */
+        .section-reviews {
+            padding: 8rem 5%;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .stars {
+            color: gold;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* --- V2 Final CTA --- */
+        .section-cta {
+            padding: 8rem 5%;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border-top: 1px solid var(--border);
+        }
+
+        .cta-box {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            border-radius: 24px;
+            background: rgba(255, 51, 102, 0.05);
+            /* Accent tint */
+            border: 1px solid rgba(255, 51, 102, 0.2);
+        }
+
+        /* Utility specific for JS population */
+        .price-tag {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Transparent Navbar -->
+    <nav class="navbar">
+        <a href="./index.html" class="logo" style="font-size:1.8rem;">Apex<span style="color:var(--accent)">Motors</span></a>
+        <div class="nav-links">
+            <a href="./index.html" class="active">Accueil</a>
+            <a href="./catalog.html">Catalogue</a>
+            <a href="./admin.html">Admin</a>
+        </div>
+    </nav>
+
+    <!-- 1. HERO SECTION -->
+    <header class="hero">
+        <img src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&q=80"
+            alt="Luxury Car Garage" class="hero-bg">
+        <div class="hero-overlay"></div>
+        <div class="hero-content fade-in">
+            <h1 class="title">L'Élite de l'Automobile</h1>
+            <p class="subtitle">Découvrez une sélection rigoureuse de véhicules premium et sportifs. Une expertise
+                technique dédiée à la passion de conduire, accompagnée d'un service véritablement sur-mesure.</p>
+            <div class="hero-buttons">
+                <a href="./catalog.html" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;">Voir
+                    notre collection</a>
+                <a href="#about" class="btn btn-secondary"
+                    style="padding: 1rem 2rem; font-size: 1.1rem; background: rgba(0,0,0,0.5)">Découvrir notre
+                    histoire</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. CATALOG PREVIEW -->
+    <section class="section-preview container fade-in" style="animation-delay: 0.2s;">
+        <div class="section-header">
+            <h2>Véhicules à la Une</h2>
+            <p>Notre sélection du moment, soigneusement préparée dans nos ateliers.</p>
+        </div>
+
+        <div id="previewGrid" class="grid">
+            <!-- Dynamic Injection via JS -->
+            <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">Chargement des véhicules phares...</div>
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem;">
+            <a href="./catalog.html" class="btn btn-secondary" style="padding: 1rem 3rem;">Explorer tout le parc
+                automobile</a>
+        </div>
+    </section>
+
+    <!-- 3. ABOUT SECTION -->
+    <section id="about" class="section-about">
+        <div class="about-layout fade-in">
+            <div>
+                <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80"
+                    alt="Mécanicien et showroom" class="about-image">
+            </div>
+            <div>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Notre Histoire, Votre Confiance</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.8;">
+                    Fondé par des puristes de la mécanique, Apex Motors n'est pas qu'un simple point de vente. C'est un
+                    véritable écrin pensé pour les passionnés.
+                    Nous sélectionnons chaque véhicule avec la même exigence que s'il était destiné à notre propre
+                    collection privée.
+                </p>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.8;">
+                    De l'historique d'entretien au passage en carrosserie, absolument rien n'est laissé au hasard. Notre
+                    but ? Vous remettre les clés d'un véhicule dans une condition clinique.
+                </p>
+                <div style="display: flex; gap: 2rem;">
+                    <div>
+                        <h3 style="font-size: 2rem; color: var(--text-primary);">10+</h3>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Années d'expertise</div>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 2rem; color: var(--text-primary);">500+</h3>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Véhicules vendus</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. ENGAGEMENTS (FEATURES) -->
+    <section class="features">
+        <div class="section-header fade-in">
+            <h2>Nos Engagements</h2>
+            <p>Achetez l'esprit libre grâce à nos standards de préparation drastiques.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-item fade-in" style="animation-delay: 0.1s">
+                <span class="feature-icon">🔍</span>
+                <h3 style="margin-bottom: 1rem;">Inspection à 150 points</h3>
+                <p style="color: var(--text-secondary); font-size: 0.95rem;">Un contrôle technique, esthétique et
+                    électronique exhaustif réalisé par nos experts certifiés avant chaque mise en vente.</p>
+            </div>
+            <div class="feature-item fade-in" style="animation-delay: 0.2s">
+                <span class="feature-icon">🛡️</span>
+                <h3 style="margin-bottom: 1rem;">Garantie Premium</h3>
+                <p style="color: var(--text-secondary); font-size: 0.95rem;">Couverture étendue de 12 à 36 mois sur les
+                    pièces majeures et la main-d'œuvre, valable dans le réseau constructeur.</p>
+            </div>
+            <div class="feature-item fade-in" style="animation-delay: 0.3s">
+                <span class="feature-icon">🤝</span>
+                <h3 style="margin-bottom: 1rem;">Reprise & Financement</h3>
+                <p style="color: var(--text-secondary); font-size: 0.95rem;">Estimation immédiate de votre ancien
+                    véhicule et solutions de crédit auto ou LOA adaptées à votre budget.</p>
+            </div>
+            <div class="feature-item fade-in" style="animation-delay: 0.4s">
+                <span class="feature-icon">💎</span>
+                <h3 style="margin-bottom: 1rem;">Préparation Esthétique</h3>
+                <p style="color: var(--text-secondary); font-size: 0.95rem;">Detailing complet intérieur/extérieur et
+                    polissage carrosserie pour vous livrer un véhicule à l'aspect clinique.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. REVIEWS -->
+    <section class="section-reviews">
+        <div class="section-header fade-in">
+            <h2>Ce qu'ils pensent de nous</h2>
+            <p>La satisfaction de nos clients est notre plus grande fierté.</p>
+        </div>
+        <div class="reviews-grid">
+            <div class="review-card fade-in">
+                <div class="stars">★★★★★</div>
+                <p style="margin-bottom: 1.5rem; font-style: italic; color: var(--text-secondary)">
+                    "Professionnalisme incroyable. Véhicule trouvé sur le site, visite organisée le lendemain. La
+                    voiture était dans un état clinique, bien au-delà de mes attentes. Je recommande les yeux fermés."
+                </p>
+                <div style="font-weight: 600;">Marc D.</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary)">Acheteur d'une Porsche 911</div>
+            </div>
+            <div class="review-card fade-in" style="animation-delay: 0.2s">
+                <div class="stars">★★★★★</div>
+                <p style="margin-bottom: 1.5rem; font-style: italic; color: var(--text-secondary)">
+                    "Une transparence rare dans ce milieu. L'historique complet, les carnets à jour, un accompagnement
+                    administratif au top. C'est la deuxième voiture que je leur prends."
+                </p>
+                <div style="font-weight: 600;">Sophie L.</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary)">Acheteuse d'une Audi RS</div>
+            </div>
+            <div class="review-card fade-in" style="animation-delay: 0.4s">
+                <div class="stars">★★★★★</div>
+                <p style="margin-bottom: 1.5rem; font-style: italic; color: var(--text-secondary)">
+                    "L'équipe s'occupent de tout de A à Z. La reprise de mon ancienne voiture s'est faite à un super
+                    prix. Service ultra premium et accueil parfait avec le café."
+                </p>
+                <div style="font-weight: 600;">Thomas B.</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary)">Acheteur d'une BMW M3</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. FINAL CTA -->
+    <section class="section-cta">
+        <div class="cta-box fade-in">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Prêt à prendre la route ?</h2>
+            <p
+                style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+                Consultez notre inventaire à jour ou contactez-nous si vous cherchez un modèle spécifique non
+                répertorié.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="./catalog.html" class="btn btn-primary" style="padding: 1rem 2rem;">Accéder au Parc Auto</a>
+                <a href="mailto:contact@apexmotors.fr" class="btn btn-secondary" style="padding: 1rem 2rem;">Nous
+                    Contacter</a>
+            </div>
+        </div>
+    </section>
+
+    <footer
+        style="text-align: center; padding: 4rem 5%; border-top: 1px solid var(--border); color: var(--text-secondary);">
+        <div
+            style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+            <div style="text-align: left;">
+                <h3 style="color: var(--text-primary); margin-bottom: 1rem;">ApexMotors</h3>
+                <p style="font-size: 0.9rem;">123 Avenue des Champs, 75008 Paris<br>Lun-Sam : 9h00 - 19h00 (sur RDV)</p>
+            </div>
+            <div>
+                <p>&copy; 2026 Apex Motors. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/data.js"></script>
+    <script>
+        // Fetch "Featured" cars for the landing preview
+        document.addEventListener('DOMContentLoaded', async () => {
+            const grid = document.getElementById('previewGrid');
+            try {
+                const cars = await window.DB.getCars();
+
+                // Prioritize 'featured' flag, or fallback to latest 3
+                let featured = cars.filter(c => c.featured === 1 || c.featured === true);
+                if (featured.length === 0) featured = cars.slice(0, 3);
+                else featured = featured.slice(0, 3); // Max 3 on frontpage
+
+                grid.innerHTML = '';
+
+                if (featured.length === 0) {
+                    grid.innerHTML = '<div style="grid-column: 1/-1;">Aucun véhicule disponible.</div>';
+                    return;
+                }
+
+                const formatPrice = (p) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(p);
+
+                featured.forEach(car => {
+                    const card = document.createElement('div');
+                    card.className = 'card fade-in';
+                    card.onclick = () => window.location.href = `./detail.html?id=${car.id}`;
+
+                    const badges = [];
+                    if (car.energy) badges.push(car.energy);
+                    if (car.gearbox) badges.push(car.gearbox);
+
+                    card.innerHTML = `
+                        <div class="card-img-wrapper">
+                            <img src="${car.image_url || 'https://via.placeholder.com/600x400'}" alt="${car.make}" class="card-img">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-price price-tag" style="font-size: 1.8rem; margin-bottom: 0.2rem;">${formatPrice(car.price)}</div>
+                            <div class="card-title" style="margin-bottom:0.5rem; font-size:1.2rem; color:white;"><strong>${car.make} ${car.model}</strong></div>
+                            <div style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:1rem;">${car.finition || ''}</div>
+                            
+                            <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem;">
+                                ${badges.map(b => `<span style="background:rgba(255,255,255,0.05); padding:0.2rem 0.6rem; border-radius:4px; font-size:0.8rem; color:var(--text-secondary); border:1px solid var(--border)">${b}</span>`).join('')}
+                            </div>
+                            
+                            <div class="card-specs">
+                                <span>Année ${car.year}</span>
+                                <span>${car.mileage ? car.mileage.toLocaleString() : '0'} km</span>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+            } catch (e) {
+                console.error(e);
+                grid.innerHTML = '<div style="grid-column: 1/-1; color: var(--error);">Impossible de charger les véhicules récents.</div>';
+            }
+        });
+    </script>
+</body>
+
+</html>
